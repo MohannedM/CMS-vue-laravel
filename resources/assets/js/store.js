@@ -14,8 +14,12 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        'REGISTER'(state){
-            
+        'REGISTER'(state, userData){
+            state.id = userData.id;
+            state.name = userData.name;
+            state.email = userData.email;
+            state.token = userData.token;
+            state.role = userData.role;
         }
     },
     actions:{
@@ -23,6 +27,8 @@ export default new Vuex.Store({
             axios.post('api/users', user)
             .then(res=>{
                 console.log(res);
+                commit('REGISTER', res.data.user);
+                
             })
             .catch(err=>{
                 console.log(err);
