@@ -25,7 +25,7 @@
                            </div>
                             <div class="form-group">
                               <label for="exampleInputEmail1">Confirm password</label>
-                              <input type="password"  class="form-control" placeholder="Confirm Password">
+                              <input type="password" v-model="user.confirmPassword" class="form-control" placeholder="Confirm Password">
                            </div>
                            <div class="form-group text-center">
                                <div id="on"
@@ -74,6 +74,7 @@ export default {
                 name: '',
                 email:'',
                 password:'',
+                confirmPassword: ''
             }
         }
     },
@@ -99,15 +100,16 @@ export default {
     },
     methods:{
         registerUser(){
-            //Register a customer
-            console.log(this.isOn ? this.customer : this.seller);
-            axios.post('/register', this.isOn ? this.customer : this.seller)
+            let user = this.isOn ? this.customer : this.seller;
+            this.$store.dispatch('register', user)
             .then(res=>{
-                console.log(res);
+                this.user.name = '';
+                this.user.email = '';
+                this.user.password = '';
+                this.user.confirmPassword = '';
             })
-            .catch(err=>{
-                console.log(err);
-            });
+            console.log(user, 'this is user');
+           
         }
     }
 }

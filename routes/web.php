@@ -12,9 +12,7 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/{vue_capture?}', function () {
     return view('home');
@@ -22,4 +20,3 @@ Route::get('/{vue_capture?}', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
