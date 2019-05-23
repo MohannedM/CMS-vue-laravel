@@ -96,21 +96,28 @@ export default {
                 role: 'seller',
                 is_active: 0
             }
+        },
+        isLogged(){
+            return this.$store.getters.isLoggedIn;
         }
     },
     methods:{
         registerUser(){
             let user = this.isOn ? this.customer : this.seller;
-            this.$store.dispatch('register', user)
-            .then(res=>{
-                this.user.name = '';
-                this.user.email = '';
-                this.user.password = '';
-                this.user.confirmPassword = '';
-            })
-            console.log(user, 'this is user');
-           
-        }
+            this.$store.dispatch('register', user);
+            
+            this.user.name = '';
+            this.user.email = '';
+            this.user.password = '';
+            this.user.confirmPassword = '';
+        },
+        beforeRouteEnter (to, from, next) {
+            if(isLogged){
+                next('/');
+            }else{
+                next();
+            }
+        },
     }
 }
 </script>

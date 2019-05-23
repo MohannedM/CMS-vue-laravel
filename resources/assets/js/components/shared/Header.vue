@@ -2,15 +2,15 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a href="/" class="navbar-brand font-weight-bold">Ecommerce</a>
+                <a href="#" class="navbar-brand font-weight-bold">Ecommerce</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <router-link tag="li" to="/" class="nav-item">
                         <a class="nav-link">Explore</a>
-                    </li>
+                    </router-link>
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Products <span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="themes">
@@ -25,14 +25,14 @@
                 <ul class="nav navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     
-                    <template v-if="!islogged">
+                    <template v-if="!isLogged">
         
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
+                        <router-link tag="li" to="/login" class="nav-item">
+                            <a class="nav-link">Login</a>
+                        </router-link>
+                        <router-link tag="li" to="/register" class="nav-item">
+                            <a class="nav-link">Register</a>
+                        </router-link>
                             
             
                     </template>
@@ -60,7 +60,7 @@
                     
                 </template>
               
-                    <li class="nav-item ml-3">
+                    <li class="nav-item ml-3" v-if="!isLoggedIn || role == 'customer'">
                         <a href="" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
                     </li>
                 </ul>
@@ -73,10 +73,14 @@
 
 <script>
 export default {
-    data(){
-        return{
-            islogged: false
+    computed:{
+        isLogged(){
+            return this.$store.getters.isLoggedIn;
+        },
+        role(){
+            return this.$store.getters.userData.role;
         }
     }
+
 }
 </script>

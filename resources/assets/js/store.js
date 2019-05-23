@@ -11,28 +11,41 @@ export default new Vuex.Store({
             email: null,
             token: null,
             role: null
-        }
+        },
+        stored: false
     },
     mutations: {
-        'REGISTER'(state, userData){
-            state.id = userData.id;
-            state.name = userData.name;
-            state.email = userData.email;
-            state.token = userData.token;
-            state.role = userData.role;
+        authUser(state, userData){
+            state.user.id = userData.id;
+            state.user.name = userData.name;
+            state.user.email = userData.email;
+            state.user.token = userData.token;
+            state.user.role = userData.role;
         }
     },
     actions:{
         register({commit}, user){
-            axios.post('api/users', user)
+            axios.post('api/user/register', user)
             .then(res=>{
                 console.log(res);
-                commit('REGISTER', res.data.user);
+                commit('authUser', res.data.user);
                 
             })
             .catch(err=>{
                 console.log(err);
             });
+        }
+    },
+    getters:{
+        userData(state){
+            return state.user;
+        },
+        isLoggedIn(state){
+            if(state.user.email && state.user.token){
+                return true;
+            } else{
+                return false;
+            }
         }
     }
 });

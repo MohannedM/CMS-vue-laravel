@@ -31,4 +31,19 @@ class AuthController extends Controller
         return response()->json(['success' => true, 'user' => $user]);
 
     }
+    public function login(Request $request) {
+    
+        if (auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            // Authentication passed...
+            $user = auth()->user();
+            $user->token = md5(uniqid(mt_rand(), true));
+            $user->save();
+            return response()->json($user);
+        }
+        
+        return response()->json([
+            'error' => 'Unauthenticated user',
+            'code' => 401,
+        ], 401);
+    }
 }

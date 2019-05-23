@@ -11,12 +11,12 @@
 |
 */
 
-
-Route::get('/', 'HomeController@index');
-
 Route::get('/{vue_capture?}', function () {
     return view('home');
 })->where('vue_capture', '[\/\w\.-]*');
+
+Route::get('/', 'HomeController@index');
+
 
 Auth::routes();
 
