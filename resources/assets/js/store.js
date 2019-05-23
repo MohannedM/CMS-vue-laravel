@@ -11,8 +11,7 @@ export default new Vuex.Store({
             email: null,
             token: null,
             role: null
-        },
-        stored: false
+        }
     },
     mutations: {
         authUser(state, userData){
@@ -29,11 +28,22 @@ export default new Vuex.Store({
             .then(res=>{
                 console.log(res);
                 commit('authUser', res.data.user);
-                
+                return true;   
             })
             .catch(err=>{
                 console.log(err);
+                return false; 
             });
+        },
+        login({commit}, user){
+            axios.post('api/user/login', {email: user.email, password: user.password})
+            .then(res=>{
+                console.log(res);
+                commit('authUser', res.data.user);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
         }
     },
     getters:{

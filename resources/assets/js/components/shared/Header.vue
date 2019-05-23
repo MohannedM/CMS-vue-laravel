@@ -60,7 +60,7 @@
                     
                 </template>
               
-                    <li class="nav-item ml-3" v-if="!isLoggedIn || role == 'customer'">
+                    <li class="nav-item ml-3" v-if="!isLogged || role == 'customer'">
                         <a href="" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
                     </li>
                 </ul>

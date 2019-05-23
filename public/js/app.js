@@ -30716,7 +30716,7 @@ function injectStyle (ssrContext) {
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(70)
 /* template */
 var __vue_template__ = __webpack_require__(31)
 /* template functional */
@@ -30837,125 +30837,186 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "login-form" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-5 mx-auto" }, [
+          _c("div", { attrs: { id: "first" } }, [
+            _c("div", { staticClass: "myform form " }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  attrs: { name: "login" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.loginUser($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                      _vm._v("Email address")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.email,
+                          expression: "user.email"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "email",
+                        name: "email",
+                        placeholder: "Enter email"
+                      },
+                      domProps: { value: _vm.user.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.user, "email", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                      _vm._v("Password")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.password,
+                          expression: "user.password"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "password",
+                        name: "password",
+                        placeholder: "Enter Password"
+                      },
+                      domProps: { value: _vm.user.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.user, "password", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "login-form" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-5 mx-auto" }, [
-            _c("div", { attrs: { id: "first" } }, [
-              _c("div", { staticClass: "myform form " }, [
-                _c("div", { staticClass: "logo mb-3" }, [
-                  _c("div", { staticClass: "col-md-12 text-center" }, [
-                    _c("h1", [_vm._v("Login")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  { attrs: { action: "", method: "post", name: "login" } },
-                  [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                        _vm._v("Email address")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "email",
-                          name: "email",
-                          id: "email",
-                          "aria-describedby": "emailHelp",
-                          placeholder: "Enter email"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                        _vm._v("Password")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "password",
-                          name: "password",
-                          id: "password",
-                          "aria-describedby": "emailHelp",
-                          placeholder: "Enter Password"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("p", { staticClass: "text-center" }, [
-                        _vm._v("By signing up you accept our "),
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v("Terms Of Use")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12 text-center " }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            " btn btn-block mybtn btn-primary tx-tfm",
-                          attrs: { type: "submit" }
-                        },
-                        [_vm._v("Login")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12 " }, [
-                      _c("div", { staticClass: "login-or" }, [
-                        _c("hr", { staticClass: "hr-or" }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "span-or" }, [_vm._v("or")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12 mb-3" }, [
-                      _c("p", { staticClass: "text-center" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "google btn mybtn",
-                            attrs: { href: "javascript:void();" }
-                          },
-                          [
-                            _c("i", { staticClass: "fab fa-google-plus-g" }),
-                            _vm._v(
-                              " Signup using Google\n                                 "
-                            )
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("p", { staticClass: "text-center" }, [
-                        _vm._v("Don't have account? "),
-                        _c(
-                          "a",
-                          { attrs: { href: "/register", id: "signup" } },
-                          [_vm._v("Sign up here")]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ])
-            ])
-          ])
+    return _c("div", { staticClass: "logo mb-3" }, [
+      _c("div", { staticClass: "col-md-12 text-center" }, [
+        _c("h1", [_vm._v("Login")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("p", { staticClass: "text-center" }, [
+        _vm._v("By signing in you accept our "),
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Terms Of Use")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 text-center " }, [
+      _c(
+        "button",
+        {
+          staticClass: " btn btn-block mybtn btn-primary tx-tfm",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("Login")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 " }, [
+      _c("div", { staticClass: "login-or" }, [
+        _c("hr", { staticClass: "hr-or" }),
+        _vm._v(" "),
+        _c("span", { staticClass: "span-or" }, [_vm._v("or")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 mb-3" }, [
+      _c("p", { staticClass: "text-center" }, [
+        _c(
+          "a",
+          {
+            staticClass: "google btn mybtn",
+            attrs: { href: "javascript:void();" }
+          },
+          [
+            _c("i", { staticClass: "fab fa-google-plus-g" }),
+            _vm._v(" Signup using Google\n                                 ")
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("p", { staticClass: "text-center" }, [
+        _vm._v("Don't have account? "),
+        _c("a", { attrs: { href: "/register", id: "signup" } }, [
+          _vm._v("Sign up here")
         ])
       ])
     ])
@@ -32374,8 +32435,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             email: null,
             token: null,
             role: null
-        },
-        stored: false
+        }
     },
     mutations: {
         authUser: function authUser(state, userData) {
@@ -32391,6 +32451,18 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             var commit = _ref.commit;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/register', user).then(function (res) {
+                console.log(res);
+                commit('authUser', res.data.user);
+                return true;
+            }).catch(function (err) {
+                console.log(err);
+                return false;
+            });
+        },
+        login: function login(_ref2, user) {
+            var commit = _ref2.commit;
+
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/login', { email: user.email, password: user.password }).then(function (res) {
                 console.log(res);
                 commit('authUser', res.data.user);
             }).catch(function (err) {
@@ -54346,7 +54418,7 @@ var render = function() {
                       ]
                     : [_vm._m(2)],
                   _vm._v(" "),
-                  !_vm.isLoggedIn || _vm.role == "customer"
+                  !_vm.isLogged || _vm.role == "customer"
                     ? _c("li", { staticClass: "nav-item ml-3" }, [_vm._m(3)])
                     : _vm._e()
                 ],
@@ -54526,6 +54598,87 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+   data: function data() {
+      return {
+         user: {
+            email: '',
+            password: ''
+         }
+      };
+   },
+
+   methods: {
+      loginUser: function loginUser() {
+         this.$store.dispatch('login', this.user);
+         this.user.email = '';
+         this.user.password = '';
+      }
+   }
+});
 
 /***/ })
 /******/ ]);
