@@ -9,6 +9,9 @@ import AdminHeader from './AdminHeader.vue';
 export default {
     components:{
         adminHeader: AdminHeader
-    }
+    },
+    mounted() {
+         this.$store.dispatch('getUsers');
+    },
 }
 </script>

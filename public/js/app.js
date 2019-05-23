@@ -30620,7 +30620,14 @@ var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_1__components_Ho
             next();
         }
     }
-}, { path: '/admin', component: __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue___default.a, children: [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_6__components_admin_AdminDashboard_vue___default.a }, { path: 'users', component: __WEBPACK_IMPORTED_MODULE_7__components_admin_users_Users_vue___default.a }, { path: 'products', component: __WEBPACK_IMPORTED_MODULE_8__components_admin_products_Products_vue___default.a }] }];
+}, { path: '/admin', component: __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue___default.a, beforeEnter: function beforeEnter(to, from, next) {
+        if (__WEBPACK_IMPORTED_MODULE_4__store__["a" /* default */].getters.isAdmin) {
+            next();
+        } else {
+            next('/');
+        }
+    },
+    children: [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_6__components_admin_AdminDashboard_vue___default.a }, { path: '/admin-users', component: __WEBPACK_IMPORTED_MODULE_7__components_admin_users_Users_vue___default.a }, { path: '/admin-products', component: __WEBPACK_IMPORTED_MODULE_8__components_admin_products_Products_vue___default.a }] }];
 
 /***/ }),
 /* 24 */
@@ -32432,130 +32439,22 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_auth__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_users__ = __webpack_require__(86);
+
 
 
 
 
 __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-    state: {
-        user: {
-            id: null,
-            name: null,
-            email: null,
-            token: null,
-            is_active: null,
-            role: null
-        }
-    },
-    mutations: {
-        authUser: function authUser(state, userData) {
-            state.user.id = userData.id;
-            state.user.name = userData.name;
-            state.user.email = userData.email;
-            state.user.token = userData.token;
-            state.user.is_active = userData.is_active;
-            state.user.role = userData.role;
-        },
-        clearAuthData: function clearAuthData(state) {
-            state.user.id = null;
-            state.user.name = null;
-            state.user.email = null;
-            state.user.token = null;
-            state.user.role = null;
-            state.user.is_active = null;
-        }
-    },
-    actions: {
-        register: function register(_ref, user) {
-            var commit = _ref.commit;
-
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/register', user).then(function (res) {
-                console.log(res);
-                commit('authUser', res.data.user);
-                localStorage.setItem('userId', res.data.user.id);
-                localStorage.setItem('userName', res.data.user.name);
-                localStorage.setItem('userEmail', res.data.user.email);
-                localStorage.setItem('userToken', res.data.user.token);
-                localStorage.setItem('userRole', res.data.user.role);
-                localStorage.setItem('userIsActive', res.data.user.is_active);
-                dispatch('setLogoutTimer');
-            }).catch(function (err) {
-                console.log(err);
-            });
-        },
-        login: function login(_ref2, user) {
-            var commit = _ref2.commit,
-                dispatch = _ref2.dispatch;
-
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/login', { email: user.email, password: user.password }).then(function (res) {
-                console.log(res);
-                commit('authUser', res.data.user);
-                localStorage.setItem('userId', res.data.user.id);
-                localStorage.setItem('userName', res.data.user.name);
-                localStorage.setItem('userEmail', res.data.user.email);
-                localStorage.setItem('userToken', res.data.user.token);
-                localStorage.setItem('userRole', res.data.user.role);
-                localStorage.setItem('userIsActive', res.data.user.is_active);
-                dispatch('setLogoutTimer');
-            }).catch(function (err) {
-                console.log(err);
-            });
-        },
-        logoutUser: function logoutUser(_ref3) {
-            var commit = _ref3.commit,
-                state = _ref3.state;
-
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/logout', { email: state.user.email, apiToken: state.user.token }).then(function (res) {
-                console.log(res);
-                commit('clearAuthData');
-                localStorage.removeItem('userId');
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userEmail');
-                localStorage.removeItem('userToken');
-                localStorage.removeItem('userRole');
-                localStorage.removeItem('userIsActive');
-            }).catch(function (err) {
-                console.log(err);
-            });
-        },
-        checkLogin: function checkLogin(_ref4) {
-            var commit = _ref4.commit;
-
-            var user = {
-                id: localStorage.getItem('userId'),
-                name: localStorage.getItem('userName'),
-                email: localStorage.getItem('userEmail'),
-                token: localStorage.getItem('userToken'),
-                is_active: localStorage.getItem('userIsActive'),
-                role: localStorage.getItem('userRole')
-            };
-            if (user.id && user.name && user.email && user.token && user.role) {
-                commit('authUser', user);
-            }
-        },
-        setLogoutTimer: function setLogoutTimer(_ref5) {
-            var commit = _ref5.commit,
-                dispatch = _ref5.dispatch;
-
-            setTimeout(function () {
-                dispatch('logoutUser');
-            }, 900000);
-        }
-    },
-    getters: {
-        userData: function userData(state) {
-            return state.user;
-        },
-        isLoggedIn: function isLoggedIn(state) {
-            if (state.user.email && state.user.token) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+    state: {},
+    mutations: {},
+    actions: {},
+    getters: {},
+    modules: {
+        auth: __WEBPACK_IMPORTED_MODULE_2__modules_auth__["a" /* default */],
+        users: __WEBPACK_IMPORTED_MODULE_3__modules_users__["a" /* default */]
     }
 }));
 
@@ -54406,6 +54305,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     computed: {
@@ -54414,11 +54316,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         user: function user() {
             return this.$store.getters.userData;
+        },
+        isUserAdmin: function isUserAdmin() {
+            return this.$store.getters.isAdmin;
         }
     },
     methods: {
         logout: function logout() {
             this.$store.dispatch('logoutUser');
+            this.$router.push('/');
         }
     }
 
@@ -54523,7 +54429,28 @@ var render = function() {
                               [_vm._v("Logout")]
                             )
                           ]
-                        )
+                        ),
+                        _vm._v(" "),
+                        _vm.isUserAdmin
+                          ? _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-item",
+                                attrs: { to: "/admin", tag: "li" },
+                                on: { click: _vm.logout }
+                              },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "nav-link",
+                                    attrs: { href: "#" }
+                                  },
+                                  [_vm._v("Admin")]
+                                )
+                              ]
+                            )
+                          : _vm._e()
                       ],
                   _vm._v(" "),
                   !_vm.isLogged || _vm.user.role == "customer"
@@ -54839,6 +54766,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
         adminHeader: __WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue___default.a
+    },
+    mounted: function mounted() {
+        this.$store.dispatch('getUsers');
     }
 });
 
@@ -54943,7 +54873,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-item px-2",
-                      attrs: { tag: "li", to: "/admin/users" }
+                      attrs: { tag: "li", to: "/admin-users" }
                     },
                     [
                       _c(
@@ -54958,7 +54888,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-item px-2",
-                      attrs: { tag: "li", to: "/admin/products" }
+                      attrs: { tag: "li", to: "/admin-products" }
                     },
                     [
                       _c(
@@ -54973,7 +54903,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-item px-2",
-                      attrs: { tag: "li", to: "/admin/categories" }
+                      attrs: { tag: "li", to: "/admin-categories" }
                     },
                     [
                       _c(
@@ -55050,7 +54980,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(88)
 /* template */
 var __vue_template__ = __webpack_require__(80)
 /* template functional */
@@ -55098,161 +55028,122 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("section", { attrs: { id: "posts" } }, [
+      _c("div", { staticClass: "container offset-md-2 py-5 mt-5" }, [
+        _c("div", { staticClass: "row text-center" }, [
+          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+            _c(
+              "div",
+              { staticClass: "card text-center bg-warning text-white mb-3" },
+              [
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c("h3", [_vm._v("Users")]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "display-4" }, [
+                      _c("i", { staticClass: "fas fa-users" }),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.usersCount) +
+                          "\n                            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-outline-light btn-sm",
+                        attrs: { to: "/admin-users" }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+            _c(
+              "div",
+              { staticClass: "card text-center bg-primary text-white mb-3" },
+              [
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c("h3", [_vm._v("Products")]),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-outline-light btn-sm",
+                        attrs: { to: "/admin-products" }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+            _c(
+              "div",
+              { staticClass: "card text-center bg-success text-white mb-3" },
+              [
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c("h3", [_vm._v("Categories")]),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-outline-light btn-sm",
+                        attrs: { to: "/admin-categories" }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "section",
-        { staticClass: "py-4 mb-4 bg-light", attrs: { id: "actions" } },
-        [
-          _c("div", { staticClass: "container offset-md-2 " }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-warning btn-block",
-                    attrs: {
-                      href: "#",
-                      "data-toggle": "modal",
-                      "data-target": "#addUserModal"
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-plus" }),
-                    _vm._v(" Add User\n                ")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-primary btn-block",
-                    attrs: {
-                      href: "#",
-                      "data-toggle": "modal",
-                      "data-target": "#addPostModal"
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-plus" }),
-                    _vm._v(" Add Products\n                ")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-success btn-block",
-                    attrs: {
-                      href: "#",
-                      "data-toggle": "modal",
-                      "data-target": "#addCategoryModal"
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-plus" }),
-                    _vm._v(" Add Category\n                ")
-                  ]
-                )
-              ])
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("section", { attrs: { id: "posts" } }, [
-        _c("div", { staticClass: "container offset-md-2 " }, [
-          _c("div", { staticClass: "row text-center" }, [
-            _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-              _c(
-                "div",
-                { staticClass: "card text-center bg-warning text-white mb-3" },
-                [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h3", [_vm._v("Users")]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "display-4" }, [
-                      _c("i", { staticClass: "fas fa-users" }),
-                      _vm._v(" 4\n                            ")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-outline-light btn-sm",
-                        attrs: { href: "users.html" }
-                      },
-                      [_vm._v("View")]
-                    )
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-              _c(
-                "div",
-                { staticClass: "card text-center bg-primary text-white mb-3" },
-                [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h3", [_vm._v("Products")]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "display-4" }, [
-                      _c("i", { staticClass: "fas fa-pencil-alt" }),
-                      _vm._v(" 6\n                            ")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-outline-light btn-sm",
-                        attrs: { href: "posts.html" }
-                      },
-                      [_vm._v("View")]
-                    )
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-              _c(
-                "div",
-                { staticClass: "card text-center bg-success text-white mb-3" },
-                [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("h3", [_vm._v("Categories")]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "display-4" }, [
-                      _c("i", { staticClass: "fas fa-folder" }),
-                      _vm._v(" 4\n                            ")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-outline-light btn-sm",
-                        attrs: { href: "categories.html" }
-                      },
-                      [_vm._v("View")]
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ])
-      ])
+    return _c("h4", { staticClass: "display-4" }, [
+      _c("i", { staticClass: "fas fa-pencil-alt" }),
+      _vm._v(" 6\n                            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "display-4" }, [
+      _c("i", { staticClass: "fas fa-folder" }),
+      _vm._v(" 4\n                            ")
     ])
   }
 ]
@@ -55272,7 +55163,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(87)
 /* template */
 var __vue_template__ = __webpack_require__(82)
 /* template functional */
@@ -55320,58 +55211,109 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "col-md-8 offset-md-2 mt-5" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("table", { staticClass: "table table-striped" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.users, function(user) {
+            return _c("tr", [
+              _c("td", [_vm._v(_vm._s(user.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.name))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.email))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(user.role))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-outline-primary",
+                    staticStyle: { cursor: "pointer" },
+                    on: {
+                      click: function($event) {
+                        return _vm.changeStatus(user.id, user.is_active)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(user.is_active == 0 ? "Pending" : "Active"))]
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-outline-primary",
+                    staticStyle: { cursor: "pointer" },
+                    on: {
+                      click: function($event) {
+                        return _vm.changeAdmin(user.id, user.is_admin)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(user.is_admin == 0 ? "No" : "Yes"))]
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger",
+                    staticStyle: { cursor: "pointer" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteUser(user.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-user-times" }),
+                    _vm._v(" Delete\n                ")
+                  ]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "col-md-8 offset-md-2 mt-5" }, [
-        _c("div", [_c("h4", [_vm._v("Users")])]),
+    return _c("div", [_c("h4", [_vm._v("Users")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("table", { staticClass: "table table-striped" }, [
-          _c("thead", { staticClass: "thead-dark" }, [
-            _c("tr", [
-              _c("th", [_vm._v("#")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Title")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Category")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Date")]),
-              _vm._v(" "),
-              _c("th")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Post One")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Web Development")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("May 10 2018")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { href: "details.html" }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-angle-double-right" }),
-                    _vm._v(" Details\n                ")
-                  ]
-                )
-              ])
-            ])
-          ])
-        ])
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Role")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Admin")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   }
@@ -55504,6 +55446,349 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-5fe60c70", module.exports)
   }
 }
+
+/***/ }),
+/* 85 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+var state = {
+    user: {
+        id: null,
+        name: null,
+        email: null,
+        token: null,
+        is_active: null,
+        is_admin: null,
+        role: null
+    }
+};
+var mutations = {
+    authUser: function authUser(state, userData) {
+        state.user.id = userData.id;
+        state.user.name = userData.name;
+        state.user.email = userData.email;
+        state.user.token = userData.token;
+        state.user.is_active = userData.is_active;
+        state.user.is_admin = userData.is_admin;
+        state.user.role = userData.role;
+    },
+    clearAuthData: function clearAuthData(state) {
+        state.user.id = null;
+        state.user.name = null;
+        state.user.email = null;
+        state.user.token = null;
+        state.user.role = null;
+        state.user.is_admin = null;
+        state.user.is_active = null;
+    }
+};
+var actions = {
+    register: function register(_ref, user) {
+        var commit = _ref.commit;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/user/register', user).then(function (res) {
+            console.log(res);
+            commit('authUser', res.data.user);
+            localStorage.setItem('userId', res.data.user.id);
+            localStorage.setItem('userName', res.data.user.name);
+            localStorage.setItem('userEmail', res.data.user.email);
+            localStorage.setItem('userToken', res.data.user.token);
+            localStorage.setItem('userAdmin', res.data.user.is_admin);
+            localStorage.setItem('userRole', res.data.user.role);
+            localStorage.setItem('userIsActive', res.data.user.is_active);
+            dispatch('setLogoutTimer');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    login: function login(_ref2, user) {
+        var commit = _ref2.commit,
+            dispatch = _ref2.dispatch;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/user/login', { email: user.email, password: user.password }).then(function (res) {
+            console.log(res);
+            commit('authUser', res.data.user);
+            localStorage.setItem('userId', res.data.user.id);
+            localStorage.setItem('userName', res.data.user.name);
+            localStorage.setItem('userEmail', res.data.user.email);
+            localStorage.setItem('userToken', res.data.user.token);
+            localStorage.setItem('userAdmin', res.data.user.is_admin);
+            localStorage.setItem('userRole', res.data.user.role);
+            localStorage.setItem('userIsActive', res.data.user.is_active);
+            dispatch('setLogoutTimer');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    logoutUser: function logoutUser(_ref3) {
+        var commit = _ref3.commit,
+            state = _ref3.state;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/user/logout', { email: state.user.email, apiToken: state.user.token }).then(function (res) {
+            console.log(res);
+            commit('clearAuthData');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userAdmin');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userIsActive');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    checkLogin: function checkLogin(_ref4) {
+        var commit = _ref4.commit;
+
+        var user = {
+            id: localStorage.getItem('userId'),
+            name: localStorage.getItem('userName'),
+            email: localStorage.getItem('userEmail'),
+            token: localStorage.getItem('userToken'),
+            is_active: localStorage.getItem('userIsActive'),
+            is_admin: localStorage.getItem('userAdmin'),
+            role: localStorage.getItem('userRole')
+        };
+        if (user.id && user.name && user.email && user.token && user.role) {
+            commit('authUser', user);
+        }
+    },
+    setLogoutTimer: function setLogoutTimer(_ref5) {
+        var commit = _ref5.commit,
+            dispatch = _ref5.dispatch;
+
+        setTimeout(function () {
+            dispatch('logoutUser');
+        }, 900000);
+    }
+};
+var getters = {
+    userData: function userData(state) {
+        return state.user;
+    },
+    isLoggedIn: function isLoggedIn(state) {
+        if (state.user.email && state.user.token) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    isAdmin: function isAdmin(state) {
+        if (state.user.is_admin == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+});
+
+/***/ }),
+/* 86 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+
+var state = {
+    users: []
+};
+
+var mutations = {
+    saveUsers: function saveUsers(state, users) {
+        state.users = users;
+    }
+};
+
+var actions = {
+    getUsers: function getUsers(_ref) {
+        var commit = _ref.commit;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/admin/users').then(function (res) {
+            commit('saveUsers', res.data.users);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    activateUser: function activateUser(_ref2, user) {
+        var commit = _ref2.commit,
+            dispatch = _ref2.dispatch;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('api/admin/users/changestatus/' + user.id, { is_active: user.is_active }).then(function (res) {
+            dispatch('getUsers');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    makeAdmin: function makeAdmin(_ref3, user) {
+        var commit = _ref3.commit,
+            dispatch = _ref3.dispatch;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('api/admin/users/' + user.id, { is_admin: user.is_admin }).then(function (res) {
+            dispatch('getUsers');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    deleteUser: function deleteUser(_ref4, id) {
+        var commit = _ref4.commit,
+            dispatch = _ref4.dispatch;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('api/admin/users/' + id).then(function (res) {
+            dispatch('getUsers');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    }
+};
+
+var getters = {
+    getUsers: function getUsers(state) {
+        return state.users;
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+});
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: {
+        users: function users() {
+            return this.$store.getters.getUsers;
+        }
+    },
+    methods: {
+        changeStatus: function changeStatus(id, is_active) {
+            this.$store.dispatch('activateUser', { id: id, is_active: is_active });
+        },
+        changeAdmin: function changeAdmin(id, is_admin) {
+            this.$store.dispatch('makeAdmin', { id: id, is_admin: is_admin });
+        },
+        deleteUser: function deleteUser(id) {
+            this.$store.dispatch('deleteUser', id);
+        }
+    }
+});
+
+/***/ }),
+/* 88 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: {
+        usersCount: function usersCount() {
+            return this.$store.getters.getUsers.length;
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

@@ -47,6 +47,9 @@
                     <li class="nav-item" @click="logout">
                             <a href="#" class="nav-link">Logout</a>
                     </li>
+                    <router-link to="/admin" tag="li" v-if="isUserAdmin" class="nav-item" @click="logout">
+                        <a href="#" class="nav-link">Admin</a>
+                    </router-link>
 
                 </template>
               
@@ -72,11 +75,15 @@ export default {
         },
         user(){
             return this.$store.getters.userData;
+        },
+        isUserAdmin(){
+            return this.$store.getters.isAdmin; 
         }
     },
     methods:{
         logout(){
             this.$store.dispatch('logoutUser');
+            this.$router.push('/');
         }
     }
 

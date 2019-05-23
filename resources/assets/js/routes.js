@@ -23,9 +23,16 @@ export const routes = [
             next();
         }
     }},
-    {path: '/admin', component: Admin, children:[
+    {path: '/admin', component: Admin, beforeEnter(to, from, next){
+        if(store.getters.isAdmin){
+            next();
+        }else{
+            next('/');
+        }
+    }, children:[
         {path:'/', component: AdminMain},
-        {path: 'users', component: AdminUsers},
-        {path: 'products', component: AdminProducts}
-    ]}
+        {path: '/admin-users', component: AdminUsers},
+        {path: '/admin-products', component: AdminProducts}
+    ]},
+    
 ];

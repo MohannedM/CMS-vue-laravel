@@ -17,6 +17,7 @@ export default {
         }else{
             this.$store.dispatch('setLogoutTimer');
         }
+       
     },
     computed:{
         isLogged(){
