@@ -31243,10 +31243,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         registerUser: function registerUser() {
             var user = this.isOn ? this.customer : this.seller;
             this.$store.dispatch('register', user);
-            this.user.name = '';
-            this.user.email = '';
-            this.user.password = '';
-            this.user.confirmPassword = '';
         },
         beforeRouteEnter: function beforeRouteEnter(to, from, next) {
             if (isLogged) {
@@ -32473,12 +32469,14 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
                 localStorage.setItem('userToken', res.data.user.token);
                 localStorage.setItem('userRole', res.data.user.role);
                 localStorage.setItem('userIsActive', res.data.user.is_active);
+                dispatch('setLogoutTimer');
             }).catch(function (err) {
                 console.log(err);
             });
         },
         login: function login(_ref2, user) {
-            var commit = _ref2.commit;
+            var commit = _ref2.commit,
+                dispatch = _ref2.dispatch;
 
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/login', { email: user.email, password: user.password }).then(function (res) {
                 console.log(res);
@@ -32489,6 +32487,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
                 localStorage.setItem('userToken', res.data.user.token);
                 localStorage.setItem('userRole', res.data.user.role);
                 localStorage.setItem('userIsActive', res.data.user.is_active);
+                dispatch('setLogoutTimer');
             }).catch(function (err) {
                 console.log(err);
             });
@@ -32524,6 +32523,14 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             if (user.id && user.name && user.email && user.token && user.role) {
                 commit('authUser', user);
             }
+        },
+        setLogoutTimer: function setLogoutTimer(_ref5) {
+            var commit = _ref5.commit,
+                dispatch = _ref5.dispatch;
+
+            setTimeout(function () {
+                dispatch('logoutUser');
+            }, 900000);
         }
     },
     getters: {
@@ -54256,6 +54263,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (!this.isLogged) {
             this.$store.dispatch('checkLogin');
             console.log('checked');
+        } else {
+            this.$store.dispatch('setLogoutTimer');
         }
     },
 
@@ -54715,8 +54724,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    methods: {
       loginUser: function loginUser() {
          this.$store.dispatch('login', this.user);
-         this.user.email = '';
-         this.user.password = '';
       }
    },
    computed: {

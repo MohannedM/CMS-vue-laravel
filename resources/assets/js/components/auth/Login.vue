@@ -62,9 +62,7 @@ export default {
    },
    methods:{
       loginUser(){
-         this.$store.dispatch('login', this.user)
-         this.user.email = '';
-         this.user.password = '';
+         this.$store.dispatch('login', this.user);
       }
    },
    computed:{

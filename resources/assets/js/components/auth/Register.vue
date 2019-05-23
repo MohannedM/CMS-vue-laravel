@@ -109,11 +109,7 @@ export default {
     methods:{
         registerUser(){
             let user = this.isOn ? this.customer : this.seller;
-            this.$store.dispatch('register', user)
-            this.user.name = '';
-            this.user.email = '';
-            this.user.password = '';
-            this.user.confirmPassword = '';
+            this.$store.dispatch('register', user);
         },
         beforeRouteEnter (to, from, next) {
             if(isLogged){

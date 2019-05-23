@@ -44,13 +44,14 @@ export default new Vuex.Store({
                 localStorage.setItem('userToken', res.data.user.token);
                 localStorage.setItem('userRole', res.data.user.role);
                 localStorage.setItem('userIsActive', res.data.user.is_active);
+                dispatch('setLogoutTimer');
             })
             .catch(err=>{
                 console.log(err);
                 
             });
         },
-        login({commit}, user){
+        login({commit, dispatch}, user){
             axios.post('api/user/login', {email: user.email, password: user.password})
             .then(res=>{
                 console.log(res);
@@ -61,6 +62,7 @@ export default new Vuex.Store({
                 localStorage.setItem('userToken', res.data.user.token);
                 localStorage.setItem('userRole', res.data.user.role);
                 localStorage.setItem('userIsActive', res.data.user.is_active);
+                dispatch('setLogoutTimer');
             })
             .catch(err=>{
                 console.log(err);
@@ -95,6 +97,11 @@ export default new Vuex.Store({
             if(user.id && user.name && user.email && user.token && user.role){
                 commit('authUser', user);
             }
+        },
+        setLogoutTimer({commit, dispatch}){
+            setTimeout(()=>{
+                dispatch('logoutUser');
+            },900000);
         }
     },
     getters:{

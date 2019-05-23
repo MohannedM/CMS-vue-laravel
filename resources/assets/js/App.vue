@@ -14,6 +14,8 @@ export default {
         if(!this.isLogged){
             this.$store.dispatch('checkLogin');
             console.log('checked');
+        }else{
+            this.$store.dispatch('setLogoutTimer');
         }
     },
     computed:{
