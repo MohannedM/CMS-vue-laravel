@@ -30591,6 +30591,15 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_admin_AdminDashboard_vue__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_admin_AdminDashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_admin_AdminDashboard_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_users_Users_vue__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_admin_users_Users_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_admin_users_Users_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_admin_products_Products_vue__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_admin_products_Products_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_admin_products_Products_vue__);
+
+
+
 
 
 
@@ -30611,7 +30620,7 @@ var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_1__components_Ho
             next();
         }
     }
-}, { path: '/admin', component: __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue___default.a }];
+}, { path: '/admin', component: __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue___default.a, children: [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_6__components_admin_AdminDashboard_vue___default.a }, { path: 'users', component: __WEBPACK_IMPORTED_MODULE_7__components_admin_users_Users_vue___default.a }, { path: 'products', component: __WEBPACK_IMPORTED_MODULE_8__components_admin_products_Products_vue___default.a }] }];
 
 /***/ }),
 /* 24 */
@@ -54796,170 +54805,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("admin-header"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)],
-    1
-  )
+  return _c("div", [_c("admin-header"), _vm._v(" "), _c("router-view")], 1)
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "section",
-      { staticClass: "py-4 mb-4 bg-light", attrs: { id: "actions" } },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary btn-block",
-                  attrs: {
-                    href: "#",
-                    "data-toggle": "modal",
-                    "data-target": "#addPostModal"
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-plus" }),
-                  _vm._v(" Add Products\n                ")
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-success btn-block",
-                  attrs: {
-                    href: "#",
-                    "data-toggle": "modal",
-                    "data-target": "#addCategoryModal"
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-plus" }),
-                  _vm._v(" Add Category\n                ")
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-warning btn-block",
-                  attrs: {
-                    href: "#",
-                    "data-toggle": "modal",
-                    "data-target": "#addUserModal"
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-plus" }),
-                  _vm._v(" Add User\n                ")
-                ]
-              )
-            ])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { attrs: { id: "posts" } }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row text-center" }, [
-          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-            _c(
-              "div",
-              { staticClass: "card text-center bg-primary text-white mb-3" },
-              [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h3", [_vm._v("Products")]),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "display-4" }, [
-                    _c("i", { staticClass: "fas fa-pencil-alt" }),
-                    _vm._v(" 6\n                            ")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-outline-light btn-sm",
-                      attrs: { href: "posts.html" }
-                    },
-                    [_vm._v("View")]
-                  )
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-            _c(
-              "div",
-              { staticClass: "card text-center bg-success text-white mb-3" },
-              [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h3", [_vm._v("Categories")]),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "display-4" }, [
-                    _c("i", { staticClass: "fas fa-folder" }),
-                    _vm._v(" 4\n                            ")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-outline-light btn-sm",
-                      attrs: { href: "categories.html" }
-                    },
-                    [_vm._v("View")]
-                  )
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
-            _c(
-              "div",
-              { staticClass: "card text-center bg-warning text-white mb-3" },
-              [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h3", [_vm._v("Users")]),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "display-4" }, [
-                    _c("i", { staticClass: "fas fa-users" }),
-                    _vm._v(" 4\n                            ")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn btn-outline-light btn-sm",
-                      attrs: { href: "users.html" }
-                    },
-                    [_vm._v("View")]
-                  )
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -54980,69 +54828,6 @@ if (false) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -55158,6 +54943,21 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-item px-2",
+                      attrs: { tag: "li", to: "/admin/users" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "nav-link", attrs: { href: "" } },
+                        [_vm._v("Users")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-item px-2",
                       attrs: { tag: "li", to: "/admin/products" }
                     },
                     [
@@ -55180,21 +54980,6 @@ var render = function() {
                         "a",
                         { staticClass: "nav-link", attrs: { href: "" } },
                         [_vm._v("Categories")]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-item px-2",
-                      attrs: { tag: "li", to: "/admin/users" }
-                    },
-                    [
-                      _c(
-                        "a",
-                        { staticClass: "nav-link", attrs: { href: "" } },
-                        [_vm._v("Users")]
                       )
                     ]
                   )
@@ -55255,6 +55040,468 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-557bb4d5", module.exports)
+  }
+}
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(80)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/AdminDashboard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7659d208", Component.options)
+  } else {
+    hotAPI.reload("data-v-7659d208", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "section",
+        { staticClass: "py-4 mb-4 bg-light", attrs: { id: "actions" } },
+        [
+          _c("div", { staticClass: "container offset-md-2 " }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-warning btn-block",
+                    attrs: {
+                      href: "#",
+                      "data-toggle": "modal",
+                      "data-target": "#addUserModal"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-plus" }),
+                    _vm._v(" Add User\n                ")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary btn-block",
+                    attrs: {
+                      href: "#",
+                      "data-toggle": "modal",
+                      "data-target": "#addPostModal"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-plus" }),
+                    _vm._v(" Add Products\n                ")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success btn-block",
+                    attrs: {
+                      href: "#",
+                      "data-toggle": "modal",
+                      "data-target": "#addCategoryModal"
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-plus" }),
+                    _vm._v(" Add Category\n                ")
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("section", { attrs: { id: "posts" } }, [
+        _c("div", { staticClass: "container offset-md-2 " }, [
+          _c("div", { staticClass: "row text-center" }, [
+            _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+              _c(
+                "div",
+                { staticClass: "card text-center bg-warning text-white mb-3" },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h3", [_vm._v("Users")]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "display-4" }, [
+                      _c("i", { staticClass: "fas fa-users" }),
+                      _vm._v(" 4\n                            ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-outline-light btn-sm",
+                        attrs: { href: "users.html" }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+              _c(
+                "div",
+                { staticClass: "card text-center bg-primary text-white mb-3" },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h3", [_vm._v("Products")]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "display-4" }, [
+                      _c("i", { staticClass: "fas fa-pencil-alt" }),
+                      _vm._v(" 6\n                            ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-outline-light btn-sm",
+                        attrs: { href: "posts.html" }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+              _c(
+                "div",
+                { staticClass: "card text-center bg-success text-white mb-3" },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h3", [_vm._v("Categories")]),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "display-4" }, [
+                      _c("i", { staticClass: "fas fa-folder" }),
+                      _vm._v(" 4\n                            ")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-outline-light btn-sm",
+                        attrs: { href: "categories.html" }
+                      },
+                      [_vm._v("View")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7659d208", module.exports)
+  }
+}
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(82)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/users/Users.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-052fb2da", Component.options)
+  } else {
+    hotAPI.reload("data-v-052fb2da", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "col-md-8 offset-md-2 mt-5" }, [
+        _c("div", [_c("h4", [_vm._v("Users")])]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table table-striped" }, [
+          _c("thead", { staticClass: "thead-dark" }, [
+            _c("tr", [
+              _c("th", [_vm._v("#")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Title")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Category")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Date")]),
+              _vm._v(" "),
+              _c("th")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Post One")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Web Development")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("May 10 2018")]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { href: "details.html" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-angle-double-right" }),
+                    _vm._v(" Details\n                ")
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-052fb2da", module.exports)
+  }
+}
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(84)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/products/Products.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5fe60c70", Component.options)
+  } else {
+    hotAPI.reload("data-v-5fe60c70", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "col-md-8 offset-md-2 mt-5" }, [
+        _c("div", [_c("h4", [_vm._v("Latest Products")])]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table table-striped" }, [
+          _c("thead", { staticClass: "thead-dark" }, [
+            _c("tr", [
+              _c("th", [_vm._v("#")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Title")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Category")]),
+              _vm._v(" "),
+              _c("th", [_vm._v("Date")]),
+              _vm._v(" "),
+              _c("th")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Post One")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Web Development")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("May 10 2018")]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { href: "details.html" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-angle-double-right" }),
+                    _vm._v(" Details\n                ")
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5fe60c70", module.exports)
   }
 }
 
