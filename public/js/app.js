@@ -32467,6 +32467,12 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/register', user).then(function (res) {
                 console.log(res);
                 commit('authUser', res.data.user);
+                localStorage.setItem('userId', res.data.user.id);
+                localStorage.setItem('userName', res.data.user.name);
+                localStorage.setItem('userEmail', res.data.user.email);
+                localStorage.setItem('userToken', res.data.user.token);
+                localStorage.setItem('userRole', res.data.user.role);
+                localStorage.setItem('userIsActive', res.data.user.is_active);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -32477,6 +32483,12 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/login', { email: user.email, password: user.password }).then(function (res) {
                 console.log(res);
                 commit('authUser', res.data.user);
+                localStorage.setItem('userId', res.data.user.id);
+                localStorage.setItem('userName', res.data.user.name);
+                localStorage.setItem('userEmail', res.data.user.email);
+                localStorage.setItem('userToken', res.data.user.token);
+                localStorage.setItem('userRole', res.data.user.role);
+                localStorage.setItem('userIsActive', res.data.user.is_active);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -32488,9 +32500,30 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/logout', { email: state.user.email, apiToken: state.user.token }).then(function (res) {
                 console.log(res);
                 commit('clearAuthData');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userRole');
+                localStorage.removeItem('userIsActive');
             }).catch(function (err) {
                 console.log(err);
             });
+        },
+        checkLogin: function checkLogin(_ref4) {
+            var commit = _ref4.commit;
+
+            var user = {
+                id: localStorage.getItem('userId'),
+                name: localStorage.getItem('userName'),
+                email: localStorage.getItem('userEmail'),
+                token: localStorage.getItem('userToken'),
+                is_active: localStorage.getItem('userIsActive'),
+                role: localStorage.getItem('userRole')
+            };
+            if (user.id && user.name && user.email && user.token && user.role) {
+                commit('authUser', user);
+            }
         }
     },
     getters: {
@@ -54218,6 +54251,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
         appHeader: __WEBPACK_IMPORTED_MODULE_0__components_shared_Header_vue___default.a
+    },
+    mounted: function mounted() {
+        if (!this.isLogged) {
+            this.$store.dispatch('checkLogin');
+            console.log('checked');
+        }
+    },
+
+    computed: {
+        isLogged: function isLogged() {
+            return this.$store.getters.isLoggedIn;
+        }
     }
 });
 

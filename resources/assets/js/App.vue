@@ -9,6 +9,17 @@ import Header from './components/shared/Header.vue';
 export default {
     components:{
         appHeader: Header
+    },
+    mounted(){
+        if(!this.isLogged){
+            this.$store.dispatch('checkLogin');
+            console.log('checked');
+        }
+    },
+    computed:{
+        isLogged(){
+            return this.$store.getters.isLoggedIn;
+        }
     }
 }
 </script>

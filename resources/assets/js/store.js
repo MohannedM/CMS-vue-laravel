@@ -38,6 +38,12 @@ export default new Vuex.Store({
             .then(res=>{
                 console.log(res);
                 commit('authUser', res.data.user);
+                localStorage.setItem('userId', res.data.user.id);
+                localStorage.setItem('userName', res.data.user.name);
+                localStorage.setItem('userEmail', res.data.user.email);
+                localStorage.setItem('userToken', res.data.user.token);
+                localStorage.setItem('userRole', res.data.user.role);
+                localStorage.setItem('userIsActive', res.data.user.is_active);
             })
             .catch(err=>{
                 console.log(err);
@@ -49,6 +55,12 @@ export default new Vuex.Store({
             .then(res=>{
                 console.log(res);
                 commit('authUser', res.data.user);
+                localStorage.setItem('userId', res.data.user.id);
+                localStorage.setItem('userName', res.data.user.name);
+                localStorage.setItem('userEmail', res.data.user.email);
+                localStorage.setItem('userToken', res.data.user.token);
+                localStorage.setItem('userRole', res.data.user.role);
+                localStorage.setItem('userIsActive', res.data.user.is_active);
             })
             .catch(err=>{
                 console.log(err);
@@ -59,10 +71,30 @@ export default new Vuex.Store({
             .then(res=>{
                 console.log(res);
                 commit('clearAuthData');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userRole');
+                localStorage.removeItem('userIsActive');
+                
             })
             .catch(err=>{
                 console.log(err);
             })
+        },
+        checkLogin({commit}){
+            let user = {
+              id: localStorage.getItem('userId'),
+              name: localStorage.getItem('userName'),
+              email: localStorage.getItem('userEmail'),
+              token: localStorage.getItem('userToken'),
+              is_active: localStorage.getItem('userIsActive'),
+              role: localStorage.getItem('userRole')  
+            };
+            if(user.id && user.name && user.email && user.token && user.role){
+                commit('authUser', user);
+            }
         }
     },
     getters:{

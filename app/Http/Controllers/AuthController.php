@@ -49,7 +49,7 @@ class AuthController extends Controller
     }
     public function logout(Request $request) {
         $user = User::where('email', '=', $request->email)->firstOrFail();
-        if ($user->token == $request->apiToken) {
+        if ($user->email == $request->email && $user->token == $request->apiToken) {
             $user->token = null; // clear api token
             $user->save();
     
