@@ -38,30 +38,23 @@
                     </template>
                 
                 <template v-else>
+
+                    <li class="nav-item">
+                        <a class="nav-link">{{user.name}}</a>
+                    </li>
                 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Name <span class="caret"></span>
-                        </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/logout"
-                                onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-
-                            <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                                
-                            </form>
-                        </div>
+                    <li class="nav-item" @click="logout">
+                            <a href="#" class="nav-link">Logout</a>
                     </li>
 
-                    
                 </template>
               
-                    <li class="nav-item ml-3" v-if="!isLogged || role == 'customer'">
+                    <li class="nav-item ml-5" v-if="!isLogged || user.role == 'customer'">
                         <a href="" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+                    </li>
+                    <li class="nav-item ml-5" v-else-if="user.role == 'seller'">
+                        <a href="" class="nav-link"><i class="fas fa-plus-square"></i> Products</a>
                     </li>
                 </ul>
 
@@ -77,8 +70,13 @@ export default {
         isLogged(){
             return this.$store.getters.isLoggedIn;
         },
-        role(){
-            return this.$store.getters.userData.role;
+        user(){
+            return this.$store.getters.userData;
+        }
+    },
+    methods:{
+        logout(){
+            this.$store.dispatch('logoutUser');
         }
     }
 

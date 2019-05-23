@@ -101,11 +101,15 @@ export default {
             return this.$store.getters.isLoggedIn;
         }
     },
+    watch:{
+        isLogged(){
+            this.$router.push('/');
+        }
+    },
     methods:{
         registerUser(){
             let user = this.isOn ? this.customer : this.seller;
-            this.$store.dispatch('register', user);
-            
+            this.$store.dispatch('register', user)
             this.user.name = '';
             this.user.email = '';
             this.user.password = '';

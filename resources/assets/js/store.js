@@ -20,6 +20,13 @@ export default new Vuex.Store({
             state.user.email = userData.email;
             state.user.token = userData.token;
             state.user.role = userData.role;
+        },
+        clearAuthData(state){
+            state.user.id = null;
+            state.user.name = null;
+            state.user.email = null;
+            state.user.token = null;
+            state.user.role = null;
         }
     },
     actions:{
@@ -28,11 +35,10 @@ export default new Vuex.Store({
             .then(res=>{
                 console.log(res);
                 commit('authUser', res.data.user);
-                return true;   
             })
             .catch(err=>{
                 console.log(err);
-                return false; 
+                
             });
         },
         login({commit}, user){
@@ -40,6 +46,16 @@ export default new Vuex.Store({
             .then(res=>{
                 console.log(res);
                 commit('authUser', res.data.user);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        },
+        logoutUser({commit, state}){
+            axios.post('api/user/logout', {email: state.user.email, apiToken: state.user.token})
+            .then(res=>{
+                console.log(res);
+                commit('clearAuthData');
             })
             .catch(err=>{
                 console.log(err);

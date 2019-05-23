@@ -31234,11 +31234,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.getters.isLoggedIn;
         }
     },
+    watch: {
+        isLogged: function isLogged() {
+            this.$router.push('/');
+        }
+    },
     methods: {
         registerUser: function registerUser() {
             var user = this.isOn ? this.customer : this.seller;
             this.$store.dispatch('register', user);
-
             this.user.name = '';
             this.user.email = '';
             this.user.password = '';
@@ -32444,6 +32448,13 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             state.user.email = userData.email;
             state.user.token = userData.token;
             state.user.role = userData.role;
+        },
+        clearAuthData: function clearAuthData(state) {
+            state.user.id = null;
+            state.user.name = null;
+            state.user.email = null;
+            state.user.token = null;
+            state.user.role = null;
         }
     },
     actions: {
@@ -32453,10 +32464,8 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/register', user).then(function (res) {
                 console.log(res);
                 commit('authUser', res.data.user);
-                return true;
             }).catch(function (err) {
                 console.log(err);
-                return false;
             });
         },
         login: function login(_ref2, user) {
@@ -32465,6 +32474,17 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/login', { email: user.email, password: user.password }).then(function (res) {
                 console.log(res);
                 commit('authUser', res.data.user);
+            }).catch(function (err) {
+                console.log(err);
+            });
+        },
+        logoutUser: function logoutUser(_ref3) {
+            var commit = _ref3.commit,
+                state = _ref3.state;
+
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('api/user/logout', { email: state.user.email, apiToken: state.user.token }).then(function (res) {
+                console.log(res);
+                commit('clearAuthData');
             }).catch(function (err) {
                 console.log(err);
             });
@@ -54317,21 +54337,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     computed: {
         isLogged: function isLogged() {
             return this.$store.getters.isLoggedIn;
         },
-        role: function role() {
-            return this.$store.getters.userData.role;
+        user: function user() {
+            return this.$store.getters.userData;
+        }
+    },
+    methods: {
+        logout: function logout() {
+            this.$store.dispatch('logoutUser');
         }
     }
 
@@ -54416,10 +54434,33 @@ var render = function() {
                           ]
                         )
                       ]
-                    : [_vm._m(2)],
+                    : [
+                        _c("li", { staticClass: "nav-item" }, [
+                          _c("a", { staticClass: "nav-link" }, [
+                            _vm._v(_vm._s(_vm.user.name))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          {
+                            staticClass: "nav-item",
+                            on: { click: _vm.logout }
+                          },
+                          [
+                            _c(
+                              "a",
+                              { staticClass: "nav-link", attrs: { href: "#" } },
+                              [_vm._v("Logout")]
+                            )
+                          ]
+                        )
+                      ],
                   _vm._v(" "),
-                  !_vm.isLogged || _vm.role == "customer"
-                    ? _c("li", { staticClass: "nav-item ml-3" }, [_vm._m(3)])
+                  !_vm.isLogged || _vm.user.role == "customer"
+                    ? _c("li", { staticClass: "nav-item ml-5" }, [_vm._m(2)])
+                    : _vm.user.role == "seller"
+                    ? _c("li", { staticClass: "nav-item ml-5" }, [_vm._m(3)])
                     : _vm._e()
                 ],
                 2
@@ -54498,57 +54539,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown" }, [
-      _c(
-        "a",
-        {
-          pre: true,
-          attrs: {
-            id: "navbarDropdown",
-            class: "nav-link dropdown-toggle",
-            href: "#",
-            role: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false"
-          }
-        },
-        [
-          _vm._v("\n                        Name "),
-          _c("span", { pre: true, attrs: { class: "caret" } })
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "dropdown-menu dropdown-menu-right",
-          attrs: { "aria-labelledby": "navbarDropdown" }
-        },
-        [
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item",
-              attrs: {
-                href: "/logout",
-                onclick:
-                  "event.preventDefault();\n                                            document.getElementById('logout-form').submit();"
-              }
-            },
-            [
-              _vm._v(
-                "\n                            Logout\n                        "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("form", {
-            staticStyle: { display: "none" },
-            attrs: { id: "logout-form", action: "/logout", method: "POST" }
-          })
-        ]
-      )
+    return _c("a", { staticClass: "nav-link", attrs: { href: "" } }, [
+      _c("i", { staticClass: "fas fa-shopping-cart" })
     ])
   },
   function() {
@@ -54556,7 +54548,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "nav-link", attrs: { href: "" } }, [
-      _c("i", { staticClass: "fas fa-shopping-cart" })
+      _c("i", { staticClass: "fas fa-plus-square" }),
+      _vm._v(" Products")
     ])
   }
 ]
@@ -54676,6 +54669,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          this.$store.dispatch('login', this.user);
          this.user.email = '';
          this.user.password = '';
+      }
+   },
+   computed: {
+      isLogged: function isLogged() {
+         return this.$store.getters.isLoggedIn;
+      }
+   },
+   watch: {
+      isLogged: function isLogged() {
+         this.$router.push('/');
       }
    }
 });

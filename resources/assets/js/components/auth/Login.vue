@@ -62,9 +62,19 @@ export default {
    },
    methods:{
       loginUser(){
-         this.$store.dispatch('login', this.user);
+         this.$store.dispatch('login', this.user)
          this.user.email = '';
          this.user.password = '';
+      }
+   },
+   computed:{
+      isLogged(){
+            return this.$store.getters.isLoggedIn;
+        }
+   },
+   watch:{
+      isLogged(){
+         this.$router.push('/');
       }
    }
 }

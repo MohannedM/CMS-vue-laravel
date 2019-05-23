@@ -46,4 +46,20 @@ class AuthController extends Controller
             'code' => 401,
         ], 401);
     }
+    public function logout(Request $request) {
+        $user = User::where('email', '=', $request->email)->firstOrFail();
+        if ($user->token == $request->apiToken) {
+            $user->token = null; // clear api token
+            $user->save();
+    
+            return response()->json([
+                'message' => 'Thank you for using our application'
+            ]);
+        }
+        
+        return response()->json([
+            'error' => 'Unable to logout user',
+            'code' => 401,
+        ], 401);
+    }
 }
