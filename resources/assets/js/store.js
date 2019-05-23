@@ -10,6 +10,7 @@ export default new Vuex.Store({
             name: null,
             email: null,
             token: null,
+            is_active: null,
             role: null
         }
     },
@@ -19,6 +20,7 @@ export default new Vuex.Store({
             state.user.name = userData.name;
             state.user.email = userData.email;
             state.user.token = userData.token;
+            state.user.is_active = userData.is_active;
             state.user.role = userData.role;
         },
         clearAuthData(state){
@@ -27,6 +29,7 @@ export default new Vuex.Store({
             state.user.email = null;
             state.user.token = null;
             state.user.role = null;
+            state.user.is_active = null;
         }
     },
     actions:{

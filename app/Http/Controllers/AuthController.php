@@ -27,7 +27,8 @@ class AuthController extends Controller
         $email    = $request->email;
         $password = $request->password;
         $role = $request->role;
-        $user     = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password), 'role'=>$role, 'token'=>md5(uniqid(mt_rand(), true))]);
+        $is_active = $request->is_active;
+        $user     = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password), 'role'=>$role, 'token'=>md5(uniqid(mt_rand(), true)), 'is_active'  => $is_active]);
         return response()->json(['success' => true, 'user' => $user]);
 
     }

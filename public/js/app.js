@@ -32438,6 +32438,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             name: null,
             email: null,
             token: null,
+            is_active: null,
             role: null
         }
     },
@@ -32447,6 +32448,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             state.user.name = userData.name;
             state.user.email = userData.email;
             state.user.token = userData.token;
+            state.user.is_active = userData.is_active;
             state.user.role = userData.role;
         },
         clearAuthData: function clearAuthData(state) {
@@ -32455,6 +32457,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vuex
             state.user.email = null;
             state.user.token = null;
             state.user.role = null;
+            state.user.is_active = null;
         }
     },
     actions: {
