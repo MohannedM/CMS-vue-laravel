@@ -3,6 +3,7 @@ import Home from './components/Home.vue';
 import Login from './components/auth/Login.vue';
 import Register from './components/auth/Register.vue';
 import store from './store';
+import Admin from './components/admin/AdminMain.vue';
 export const routes = [
     {path: '/', component: Home},
     {path: '/login', component: Login, beforeEnter(to, from, next){
@@ -19,4 +20,5 @@ export const routes = [
             next();
         }
     }},
+    {path: '/admin', component: Admin}
 ];

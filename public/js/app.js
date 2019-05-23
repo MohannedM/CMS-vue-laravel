@@ -30589,6 +30589,9 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_auth_Register_vue__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_auth_Register_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_auth_Register_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue__);
+
 
 
 
@@ -30608,7 +30611,7 @@ var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_1__components_Ho
             next();
         }
     }
-}];
+}, { path: '/admin', component: __WEBPACK_IMPORTED_MODULE_5__components_admin_AdminMain_vue___default.a }];
 
 /***/ }),
 /* 24 */
@@ -54737,6 +54740,523 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
    }
 });
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(76)
+/* template */
+var __vue_template__ = __webpack_require__(72)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/AdminMain.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-00322e01", Component.options)
+  } else {
+    hotAPI.reload("data-v-00322e01", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [_c("admin-header"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "section",
+      { staticClass: "py-4 mb-4 bg-light", attrs: { id: "actions" } },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-3" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary btn-block",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addPostModal"
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-plus" }),
+                  _vm._v(" Add Products\n                ")
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-success btn-block",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addCategoryModal"
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-plus" }),
+                  _vm._v(" Add Category\n                ")
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-warning btn-block",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#addUserModal"
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-plus" }),
+                  _vm._v(" Add User\n                ")
+                ]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { attrs: { id: "posts" } }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row text-center" }, [
+          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+            _c(
+              "div",
+              { staticClass: "card text-center bg-primary text-white mb-3" },
+              [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h3", [_vm._v("Products")]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "display-4" }, [
+                    _c("i", { staticClass: "fas fa-pencil-alt" }),
+                    _vm._v(" 6\n                            ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-outline-light btn-sm",
+                      attrs: { href: "posts.html" }
+                    },
+                    [_vm._v("View")]
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+            _c(
+              "div",
+              { staticClass: "card text-center bg-success text-white mb-3" },
+              [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h3", [_vm._v("Categories")]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "display-4" }, [
+                    _c("i", { staticClass: "fas fa-folder" }),
+                    _vm._v(" 4\n                            ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-outline-light btn-sm",
+                      attrs: { href: "categories.html" }
+                    },
+                    [_vm._v("View")]
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-md-1" }, [
+            _c(
+              "div",
+              { staticClass: "card text-center bg-warning text-white mb-3" },
+              [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h3", [_vm._v("Users")]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "display-4" }, [
+                    _c("i", { staticClass: "fas fa-users" }),
+                    _vm._v(" 4\n                            ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-outline-light btn-sm",
+                      attrs: { href: "users.html" }
+                    },
+                    [_vm._v("View")]
+                  )
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-00322e01", module.exports)
+  }
+}
+
+/***/ }),
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        adminHeader: __WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue___default.a
+    }
+});
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(78)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/admin/AdminHeader.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-557bb4d5", Component.options)
+  } else {
+    hotAPI.reload("data-v-557bb4d5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-sm navbar-dark bg-dark p-0" },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c(
+            "a",
+            { staticClass: "navbar-brand", attrs: { href: "index.html" } },
+            [_vm._v("Ecommerce")]
+          ),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarCollapse" }
+            },
+            [
+              _c(
+                "ul",
+                { staticClass: "navbar-nav" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-item px-2",
+                      attrs: { tag: "li", to: "/admin" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "nav-link active", attrs: { href: "" } },
+                        [_vm._v("Dashboard")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-item px-2",
+                      attrs: { tag: "li", to: "/admin/products" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "nav-link", attrs: { href: "" } },
+                        [_vm._v("Products")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-item px-2",
+                      attrs: { tag: "li", to: "/admin/categories" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "nav-link", attrs: { href: "" } },
+                        [_vm._v("Categories")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-item px-2",
+                      attrs: { tag: "li", to: "/admin/users" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        { staticClass: "nav-link", attrs: { href: "" } },
+                        [_vm._v("Users")]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("ul", { staticClass: "navbar-nav ml-auto" })
+            ]
+          )
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "header",
+      {
+        staticClass: "mt-n4 bg-primary text-white",
+        attrs: { id: "main-header" }
+      },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("h1", [
+                _c("i", { staticClass: "fas fa-cog" }),
+                _vm._v(" Dashboard")
+              ])
+            ])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: { "data-toggle": "collapse", "data-target": "#navbarCollapse" }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-557bb4d5", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
