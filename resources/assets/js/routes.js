@@ -7,6 +7,7 @@ import Admin from './components/admin/AdminMain.vue';
 import AdminMain from './components/admin/AdminDashboard.vue';
 import AdminUsers from './components/admin/users/Users.vue';
 import AdminProducts from './components/admin/products/Products.vue';
+import AdminCategories from './components/admin/categories/Categories.vue';
 export const routes = [
     {path: '/', component: Home},
     {path: '/login', component: Login, beforeEnter(to, from, next){
@@ -32,7 +33,8 @@ export const routes = [
     }, children:[
         {path:'/', component: AdminMain},
         {path: '/admin-users', component: AdminUsers},
-        {path: '/admin-products', component: AdminProducts}
+        {path: '/admin-products', component: AdminProducts},
+        {path: '/admin-categories', component: AdminCategories}
     ]},
     
 ];

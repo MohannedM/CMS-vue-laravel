@@ -23,3 +23,5 @@ Route::post('user/logout', 'AuthController@logout');
 
 Route::resource('admin/users', 'UsersController');
 Route::put('admin/users/changestatus/{id}', 'UsersController@changeStatus');
+
+Route::resource('admin/categories', 'CategoriesController');

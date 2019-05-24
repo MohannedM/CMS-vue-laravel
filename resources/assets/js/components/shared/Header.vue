@@ -48,7 +48,7 @@
                             <a href="#" class="nav-link">Logout</a>
                     </li>
                     <router-link to="/admin" tag="li" v-if="isUserAdmin" class="nav-item" @click="logout">
-                        <a href="#" class="nav-link">Admin</a>
+                        <a href="#" class="btn btn-outline-success">Admin</a>
                     </router-link>
 
                 </template>
