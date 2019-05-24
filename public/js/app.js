@@ -32841,8 +32841,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         //Get all users
         this.$store.dispatch('getUsers');
-        //Get all categories
-        this.$store.dispatch('getAllCategories');
     }
 });
 
@@ -55376,13 +55374,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         appHeader: __WEBPACK_IMPORTED_MODULE_0__components_shared_Header_vue___default.a
     },
-    mounted: function mounted() {
+    created: function created() {
         if (!this.isLogged) {
             this.$store.dispatch('checkLogin');
             console.log('checked');
         } else {
             this.$store.dispatch('setLogoutTimer');
         }
+        this.$store.dispatch('getAllCategories');
     },
 
     computed: {
@@ -55511,9 +55510,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     computed: {
@@ -55525,6 +55521,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         isUserAdmin: function isUserAdmin() {
             return this.$store.getters.isAdmin;
+        },
+        categories: function categories() {
+            return this.$store.getters.getCategories;
         }
     },
     methods: {
@@ -55578,7 +55577,28 @@ var render = function() {
                     [_c("a", { staticClass: "nav-link" }, [_vm._v("Explore")])]
                   ),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c("li", { staticClass: "nav-item dropdown" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu",
+                        attrs: { "aria-labelledby": "themes" }
+                      },
+                      _vm._l(_vm.categories, function(category) {
+                        return _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            attrs: { href: "#" }
+                          },
+                          [_vm._v(_vm._s(category.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
                 ],
                 1
               ),
@@ -55699,43 +55719,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link dropdown-toggle",
-          attrs: { "data-toggle": "dropdown", href: "#", id: "themes" }
-        },
-        [_vm._v("Products "), _c("span", { staticClass: "caret" })]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "dropdown-menu",
-          attrs: { "aria-labelledby": "themes" }
-        },
-        [
-          _c(
-            "a",
-            { staticClass: "dropdown-item", attrs: { href: "../default/" } },
-            [_vm._v("Electronics")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            { staticClass: "dropdown-item", attrs: { href: "../cerulean/" } },
-            [_vm._v("Groceiers")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            { staticClass: "dropdown-item", attrs: { href: "../cosmo/" } },
-            [_vm._v("Books")]
-          )
-        ]
-      )
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link dropdown-toggle",
+        attrs: { "data-toggle": "dropdown", href: "#", id: "themes" }
+      },
+      [_vm._v("Products "), _c("span", { staticClass: "caret" })]
+    )
   },
   function() {
     var _vm = this

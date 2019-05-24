@@ -14,10 +14,7 @@
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Products <span class="caret"></span></a>
                     <div class="dropdown-menu" aria-labelledby="themes">
-                        <a class="dropdown-item" href="../default/">Electronics</a>
-                        <!-- <div class="dropdown-divider"></div> -->
-                        <a class="dropdown-item" href="../cerulean/">Groceiers</a>
-                        <a class="dropdown-item" href="../cosmo/">Books</a>
+                        <a href="#" class="dropdown-item" v-for="category in categories">{{category.name}}</a>
                     </div>
                     </li>
                 </ul>
@@ -78,6 +75,9 @@ export default {
         },
         isUserAdmin(){
             return this.$store.getters.isAdmin; 
+        },
+        categories(){
+            return this.$store.getters.getCategories;
         }
     },
     methods:{

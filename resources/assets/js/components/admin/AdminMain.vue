@@ -13,8 +13,6 @@ export default {
     created() {
         //Get all users
          this.$store.dispatch('getUsers');
-         //Get all categories
-         this.$store.dispatch('getAllCategories');
          
     },
 }

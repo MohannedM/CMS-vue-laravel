@@ -10,13 +10,14 @@ export default {
     components:{
         appHeader: Header
     },
-    mounted(){
+    created(){
         if(!this.isLogged){
             this.$store.dispatch('checkLogin');
             console.log('checked');
         }else{
             this.$store.dispatch('setLogoutTimer');
         }
+        this.$store.dispatch('getAllCategories');
        
     },
     computed:{
