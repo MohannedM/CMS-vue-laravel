@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label for="image">Product Image: <sup>*</sup></label>
                 <br>
-                <input type="file" @change="onFileChange" class="form-control">
+                <input type="file" @change="onFileChange" accept="image/png, image/jpeg" class="form-control">
               
             </div>
             <div>
@@ -64,10 +64,19 @@ export default {
     },
     methods:{
         onFileChange(event){
-            this.product.image = URL.createObjectURL(event.target.files[0]);
+            this.product.image = event.target.files[0].name;
+            // console.log(URL.createObjectURL(event.target.files[0]));
+            // console.log(event.target.files[0]);
+            // console.log(event.target.value);
+            // const a = document.createElement('a');
+            // a.setAttribute('download', event.target.files[0].name);
+            // a.setAttribute('href', URL.createObjectURL(event.target.files[0]));
+            // a.click();
+            
         },
         addProduct(){
             this.$store.dispatch('createProduct', this.product);
+            this.$router.push('/');
         }
     }
 }

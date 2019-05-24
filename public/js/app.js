@@ -18391,6 +18391,7 @@ window.Vue = __webpack_require__(4);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+__WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('app-header', __webpack_require__(78));
 __WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('app', __webpack_require__(76));
 
 var app = new __WEBPACK_IMPORTED_MODULE_1_vue___default.a({
@@ -30727,10 +30728,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+
+    computed: {
+        products: function products() {
+            return this.$store.getters.getProducts;
+        }
     }
 });
 
@@ -30742,15 +30764,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", [_vm._v("Ecommerce")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(_vm.products, function(product) {
+        return _c("div", { staticClass: "col-md-4 col-sm-1" }, [
+          _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: { src: "/images/" + product.image, alt: "Card image cap" }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(product.name))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "list-group list-group-flush" }, [
+              _c("li", { staticClass: "list-group-item" }, [
+                _vm._v("Price: $" + _vm._s(product.price.toLocaleString()))
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(0, true)
+          ])
+        ])
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("MoCommerce")])
+    return _c("div", { staticClass: "card-body" }, [
+      _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+        _vm._v("View Product")
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+        _vm._v("Add To Cart")
+      ])
     ])
   }
 ]
@@ -55373,13 +55433,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        appHeader: __WEBPACK_IMPORTED_MODULE_0__components_shared_Header_vue___default.a
-    },
     created: function created() {
         if (!this.isLogged) {
             this.$store.dispatch('checkLogin');
@@ -55388,6 +55444,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('setLogoutTimer');
         }
         this.$store.dispatch('getAllCategories');
+        this.$store.dispatch('getAllProducts');
     },
 
     computed: {
@@ -55776,11 +55833,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("app-header"), _vm._v(" "), _c("router-view", { staticClass: "py-4" })],
-    1
-  )
+  return _c("div", [_c("router-view", { staticClass: "py-4" })], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56301,10 +56354,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         onFileChange: function onFileChange(event) {
-            this.product.image = URL.createObjectURL(event.target.files[0]);
+            this.product.image = event.target.files[0].name;
+            // console.log(URL.createObjectURL(event.target.files[0]));
+            // console.log(event.target.files[0]);
+            // console.log(event.target.value);
+            // const a = document.createElement('a');
+            // a.setAttribute('download', event.target.files[0].name);
+            // a.setAttribute('href', URL.createObjectURL(event.target.files[0]));
+            // a.click();
         },
         addProduct: function addProduct() {
             this.$store.dispatch('createProduct', this.product);
+            this.$router.push('/');
         }
     }
 });
@@ -56491,7 +56552,7 @@ var render = function() {
           _vm._v(" "),
           _c("input", {
             staticClass: "form-control",
-            attrs: { type: "file" },
+            attrs: { type: "file", accept: "image/png, image/jpeg" },
             on: { change: _vm.onFileChange }
           })
         ]),
@@ -56584,11 +56645,19 @@ if (false) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(24);
 
 
-var state = {};
 
-var mutations = {};
+var state = {
+    products: []
+};
+
+var mutations = {
+    setProducts: function setProducts(state, products) {
+        state.products = products;
+    }
+};
 
 var actions = {
     createProduct: function createProduct(_ref, product) {
@@ -56600,16 +56669,31 @@ var actions = {
             name: product.name,
             price: product.price,
             quantity: product.quantity,
-            description: product.description
+            description: product.description,
+            image: product.image
         }).then(function (res) {
             console.log(res);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    getAllProducts: function getAllProducts(_ref2) {
+        var commit = _ref2.commit;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('api/products').then(function (res) {
+            console.log(res);
+            commit('setProducts', res.data.products);
         }).catch(function (err) {
             console.log(err);
         });
     }
 };
 
-var getters = {};
+var getters = {
+    getProducts: function getProducts(state) {
+        return state.products;
+    }
+};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,

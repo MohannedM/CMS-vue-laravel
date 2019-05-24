@@ -15,6 +15,8 @@ class ProductsController extends Controller
     public function index()
     {
         //
+        $products = Product::all();
+        return response()->json(['success'=>true, 'products'=>$products]);
     }
 
     /**
@@ -46,9 +48,9 @@ class ProductsController extends Controller
         $product->description = $request->description;
         // // $product->image = 'image';
         // if($file = $request->image){
-        //     $name = time() . $file;
-        //     // $file->move('images', $name);
-        //     $product->image = $name;
+            // $name = time() . $file->getClientOriginalName();
+            // $file->move('images', $name);
+            // $product->image = $name;
         // }
         $product->image = $request->image;
         $user->products()->save($product);

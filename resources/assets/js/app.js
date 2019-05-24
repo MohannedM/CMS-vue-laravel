@@ -24,6 +24,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('app-header', require('./components/shared/Header.vue'));
 Vue.component('app', require('./App.vue'));
 
 const app = new Vue({

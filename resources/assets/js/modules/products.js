@@ -1,11 +1,14 @@
 import axios from 'axios';
+import {routes} from '../routes';
 
 const state = {
-
+    products:[]
 };
 
 const mutations = {
-
+    setProducts(state, products){
+        state.products = products;
+    }
 };
 
 const actions = {
@@ -16,10 +19,21 @@ const actions = {
             name: product.name,
             price: product.price,
             quantity: product.quantity,
-            description: product.description
+            description: product.description,
+            image: product.image
         })
         .then(res=>{
             console.log(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        });
+    },
+    getAllProducts({commit}){
+        axios.get('api/products')
+        .then(res=>{
+            console.log(res);
+            commit('setProducts', res.data.products);
         })
         .catch(err=>{
             console.log(err);
@@ -28,7 +42,9 @@ const actions = {
 };
 
 const getters = {
-
+    getProducts(state){
+        return state.products;
+    }
 };
 
 export default{
