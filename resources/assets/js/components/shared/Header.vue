@@ -53,9 +53,9 @@
                     <li class="nav-item ml-5" v-if="!isLogged || user.role == 'customer'">
                         <a href="" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
                     </li>
-                    <li class="nav-item ml-5" v-else-if="user.role == 'seller'">
-                        <a href="" class="nav-link"><i class="fas fa-plus-square"></i> Products</a>
-                    </li>
+                    <router-link tag="li" to="/add-product" class="nav-item ml-5" v-else-if="user.role == 'seller'">
+                        <a href="#" class="nav-link"><i class="fas fa-plus-square"></i> Products</a>
+                    </router-link>
                 </ul>
 
                 </div>

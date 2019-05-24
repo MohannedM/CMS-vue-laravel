@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import Home from './components/Home.vue';
 import Login from './components/auth/Login.vue';
 import Register from './components/auth/Register.vue';
+import AddProduct from './components/products/CreateProduct.vue';
 import store from './store';
 import Admin from './components/admin/AdminMain.vue';
 import AdminMain from './components/admin/AdminDashboard.vue';
@@ -24,6 +25,7 @@ export const routes = [
             next();
         }
     }},
+    {path: '/add-product', component: AddProduct},
     {path: '/admin', component: Admin, beforeEnter(to, from, next){
         if(store.getters.isAdmin){
             next();

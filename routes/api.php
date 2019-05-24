@@ -25,3 +25,5 @@ Route::resource('admin/users', 'UsersController');
 Route::put('admin/users/changestatus/{id}', 'UsersController@changeStatus');
 
 Route::resource('admin/categories', 'CategoriesController');
+
+Route::resource('products', 'ProductsController');
