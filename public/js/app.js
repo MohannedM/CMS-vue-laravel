@@ -32838,7 +32838,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: {
         adminHeader: __WEBPACK_IMPORTED_MODULE_0__AdminHeader_vue___default.a
     },
-    mounted: function mounted() {
+    created: function created() {
         //Get all users
         this.$store.dispatch('getUsers');
         //Get all categories
@@ -33169,6 +33169,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         usersCount: function usersCount() {
             return this.$store.getters.getUsers.length;
+        },
+        categoriesCount: function categoriesCount() {
+            return this.$store.getters.getCategories.length;
         }
     }
 });
@@ -33259,7 +33262,14 @@ var render = function() {
                   [
                     _c("h3", [_vm._v("Categories")]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("h4", { staticClass: "display-4" }, [
+                      _c("i", { staticClass: "fas fa-folder" }),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.categoriesCount) +
+                          "\n                            "
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "router-link",
@@ -33288,15 +33298,6 @@ var staticRenderFns = [
     return _c("h4", { staticClass: "display-4" }, [
       _c("i", { staticClass: "fas fa-pencil-alt" }),
       _vm._v(" 6\n                            ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h4", { staticClass: "display-4" }, [
-      _c("i", { staticClass: "fas fa-folder" }),
-      _vm._v(" 4\n                            ")
     ])
   }
 ]
@@ -55868,9 +55869,41 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(category.name))]),
                     _vm._v(" "),
-                    _vm._m(2, true),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          on: {
+                            click: function($event) {
+                              return _vm.editCategory(category)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "far fa-edit" }),
+                          _vm._v(" Edit\n                    ")
+                        ]
+                      )
+                    ]),
                     _vm._v(" "),
-                    _vm._m(3, true)
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.removeCategory(category.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-times" }),
+                          _vm._v(" Delete\n                    ")
+                        ]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -55886,7 +55919,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.addCategory($event)
+                _vm.edit ? _vm.updateCategory() : _vm.addCategory()
               }
             }
           },
@@ -55958,28 +55991,6 @@ var staticRenderFns = [
         _c("th"),
         _vm._v(" "),
         _c("th")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-secondary" }, [
-        _c("i", { staticClass: "far fa-edit" }),
-        _vm._v(" Edit\n                    ")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-danger" }, [
-        _c("i", { staticClass: "fas fa-times" }),
-        _vm._v(" Delete\n                    ")
       ])
     ])
   }
@@ -56067,6 +56078,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$store.dispatch('insertCategory', this.category.name);
                 this.category.name = '';
             }
+        },
+        updateCategory: function updateCategory() {
+            if (this.category.name != '' && this.category.id != '') {
+                this.$store.dispatch('modifyCategory', this.category);
+                this.category.id = '';
+                this.category.name = '';
+                this.edit = false;
+            }
+        },
+        editCategory: function editCategory(category) {
+            this.category.id = category.id;
+            this.category.name = category.name;
+            this.edit = true;
+        },
+        removeCategory: function removeCategory(id) {
+            this.$store.dispatch('deleteCategory', id);
         }
     },
     computed: {
@@ -56110,8 +56137,27 @@ var actions = {
         var commit = _ref2.commit;
 
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/admin/categories').then(function (res) {
-            console.log(res);
             commit('setCategories', res.data.categories);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    modifyCategory: function modifyCategory(_ref3, category) {
+        var commit = _ref3.commit,
+            dispatch = _ref3.dispatch;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/api/admin/categories/' + category.id, { name: category.name }).then(function (res) {
+            dispatch('getAllCategories');
+        }).catch(function (err) {
+            console.log(err);
+        });
+    },
+    deleteCategory: function deleteCategory(_ref4, id) {
+        var commit = _ref4.commit,
+            dispatch = _ref4.dispatch;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('/api/admin/categories/' + id).then(function (res) {
+            dispatch('getAllCategories');
         }).catch(function (err) {
             console.log(err);
         });

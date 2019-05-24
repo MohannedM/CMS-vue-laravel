@@ -23,12 +23,29 @@ const actions = {
     getAllCategories({commit}){
         axios.get('/api/admin/categories')
         .then(res=>{
-            console.log(res);
             commit('setCategories', res.data.categories);
         })
         .catch(err=>{
             console.log(err);
         });
+    },
+    modifyCategory({commit, dispatch}, category){
+        axios.put('/api/admin/categories/' + category.id, {name: category.name})
+        .then(res=>{
+            dispatch('getAllCategories');
+        })
+        .catch(err=>{
+            console.log(err);
+        });
+    },
+    deleteCategory({commit, dispatch}, id){
+        axios.delete('/api/admin/categories/' + id)
+        .then(res=>{
+            dispatch('getAllCategories');
+        })
+        .catch(err=>{
+            console.log(err);
+        })
     }
 };
 

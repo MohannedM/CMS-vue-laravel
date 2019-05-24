@@ -10,7 +10,7 @@ export default {
     components:{
         adminHeader: AdminHeader
     },
-    mounted() {
+    created() {
         //Get all users
          this.$store.dispatch('getUsers');
          //Get all categories

@@ -19,12 +19,12 @@
                         <td>{{category.id}}</td>
                         <td>{{category.name}}</td>
                         <td>
-                        <button class="btn btn-secondary">
+                        <button @click="editCategory(category)" class="btn btn-secondary">
                             <i class="far fa-edit"></i> Edit
                         </button>
                         </td>
                         <td>
-                        <button class="btn btn-danger">
+                        <button @click="removeCategory(category.id)" class="btn btn-danger">
                             <i class="fas fa-times"></i> Delete
                         </button>
                         </td>
@@ -33,7 +33,7 @@
                 </table>
             </div>
             <div class="col-md-4">
-                <form @submit.prevent="addCategory">
+                <form @submit.prevent="edit ? updateCategory() : addCategory()">
                     <h4>Add Category</h4>
                     <div class="form-group">
                         <label for="name">Category Name</label>
@@ -65,6 +65,22 @@ export default {
                 this.$store.dispatch('insertCategory', this.category.name);
                 this.category.name = '';
             }
+        },
+        updateCategory(){
+            if(this.category.name != '' && this.category.id != ''){
+                this.$store.dispatch('modifyCategory', this.category);
+                this.category.id = '';
+                this.category.name = '';
+                this.edit = false;
+            }
+        },
+        editCategory(category){
+            this.category.id = category.id;
+            this.category.name = category.name;
+            this.edit = true;
+        },
+        removeCategory(id){
+            this.$store.dispatch('deleteCategory', id);
         }
     },
     computed:{
