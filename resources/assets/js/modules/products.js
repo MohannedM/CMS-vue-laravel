@@ -12,7 +12,7 @@ const mutations = {
 };
 
 const actions = {
-    createProduct({commit}, product){
+    createProduct({commit, dispatch}, product){
         axios.post('/api/products', {
             user_id: product.user_id,
             category_id: product.category_id,
@@ -24,6 +24,7 @@ const actions = {
         })
         .then(res=>{
             console.log(res);
+            dispatch('getAllProducts');
         })
         .catch(err=>{
             console.log(err);

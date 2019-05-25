@@ -10,19 +10,17 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Category</th>
-                    <th>Date</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Post One</td>
-                    <td>Web Development</td>
-                    <td>May 10 2018</td>
+                <tr v-for="product in products">
+                    <td>{{product.id}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category_id}}</td>
                     <td>
-                    <a href="details.html" class="btn btn-secondary">
-                        <i class="fas fa-angle-double-right"></i> Details
+                    <a style="cursor:pointer" class="btn btn-danger">
+                        <i class="fas fa-user-times"></i> Delete
                     </a>
                     </td>
                 </tr>
@@ -31,3 +29,12 @@
         </div>   
     </div>
 </template>
+<script>
+export default {
+    computed:{
+        products(){
+            return this.$store.getters.getProducts;
+        }
+    }
+}
+</script>

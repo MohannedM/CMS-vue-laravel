@@ -20,7 +20,7 @@
                             <div class="card-body">
                                 <h3>Products</h3>
                                 <h4 class="display-4">
-                                    <i class="fas fa-pencil-alt"></i> 6
+                                    <i class="fas fa-pencil-alt"></i> {{productsCount}}
                                 </h4>
                                 <router-link to="/admin-products"  class="btn btn-outline-light btn-sm">View</router-link>
                             </div>
@@ -50,6 +50,9 @@ export default {
         },
         categoriesCount(){
             return this.$store.getters.getCategories.length;
+        },
+        productsCount(){
+            return this.$store.getters.getProducts.length;
         }
     }
 }
